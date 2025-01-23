@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GestionMedical.Models.Notification>
+
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Centre de Notifications</h1>
+            <p class="text-muted mb-0">Gérez vos notifications et rappels</p>
+        </div>
+        
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-bell-slash text-muted" style="font-size: 3rem;"></i>
+                    <h5 class="mt-3">Aucune notification</h5>
+                    <p class="text-muted">Vous n'avez pas de notifications pour le moment.</p>
+                </div>
+            }
+            else
+            {
+                <div class="list-group list-group-flush">
+                    @foreach (var item in Model)
+                    {
+                        <div class="list-group-item list-group-item-action p-4">
+                            <div class="d-flex w-100 justify-content-between align-items-start">
+                                <div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-bell-fill text-primary me-2"></i>
+                                        <h6 class="mb-0">@item.Message</h6>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted small">
+                                        <i class="bi bi-clock me-1"></i>
+                                        <span>@item.DateSent.ToString("dd/MM/yyyy HH:mm")</span>
+                                        <i class="bi bi-person ms-3 me-1"></i>
+                                        <span>Dr. @item.Medecin.NomComplet</span>
+                                        <span class="ms-3 badge @(item.Status == "Sent" ? "bg-success" : "bg-secondary")">
+                                            @item.Status
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .badge {
+            padding: 0.5em 0.8em;
+            font-weight: 500;
+        }
+    </style>
+}

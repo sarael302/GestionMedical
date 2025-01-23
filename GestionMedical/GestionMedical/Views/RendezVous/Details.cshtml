@@ -1,0 +1,119 @@
+﻿@model GestionMedical.Models.RendezVou
+
+@{
+    ViewData["Title"] = "Détails du Rendez-vous";
+}
+
+<div class="consultation-page">
+    <div class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                Détails du Rendez-vous
+            </h1>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="details-container">
+                <div class="detail-item">
+                    <div class="detail-label d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        @Html.DisplayNameFor(model => model.DateHeure)
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.DateHeure)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </div>
+                    <div class="detail-value">
+                        <span class="badge @(Model.Status == "Confirmé" ? "bg-success" : Model.Status == "Refusé" ? "bg-danger" : "bg-warning")">
+                            @Html.DisplayFor(model => model.Status)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        @Html.DisplayNameFor(model => model.Medecin)
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Medecin.MedecinId)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        @Html.DisplayNameFor(model => model.Patient)
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Patient.PatientId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model?.RendezVousId" class="btn btn-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                    </svg>
+                    Modifier
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .details-container {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .detail-item {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+        font-size: 1.1rem;
+    }
+</style>

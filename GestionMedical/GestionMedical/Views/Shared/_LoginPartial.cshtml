@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <span class="user-greeting me-3">
+        <i class="bi bi-person-circle me-1"></i>
+        Hello, <a asp-area="Identity" asp-page="/Account/Manage/Index">@(User.Identity?.Name?.Split('@')[0])</a>!
+    </span>
+    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" class="btn btn-login">
+            <i class="bi bi-box-arrow-right me-1"></i>
+            Logout
+        </button>
+    </form>
+}
+else
+{
+    <a class="btn btn-register me-2" asp-area="Identity" asp-page="/Account/Register">
+        <i class="bi bi-person-plus me-1"></i>
+        Register
+    </a>
+    <a class="btn btn-login" asp-area="Identity" asp-page="/Account/Login">
+        <i class="bi bi-box-arrow-in-right me-1"></i>
+        Login
+    </a>
+}

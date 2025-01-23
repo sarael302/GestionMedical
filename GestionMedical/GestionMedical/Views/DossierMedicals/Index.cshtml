@@ -1,0 +1,170 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Index des Dossiers Médicaux";
+}
+<style>
+    .consultation-page {
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .page-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    .card {
+        width: 100%;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        line-height: 1;
+    }
+
+    .badge {
+        padding: 0.5em 0.75em;
+    }
+    </style>
+
+<div class="consultation-page">
+    <div class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                    <path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z" />
+                </svg>
+                Dossiers Médicaux
+            </h1>
+            <a asp-action="Create" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                    <path d="M12 5v14M5 12h14" />
+                </svg>
+                Nouveau Dossier
+            </a>
+        </div>
+    </div>
+    <div class="search-container mb-3">
+        <form asp-action="Index" method="get" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Rechercher par patient ..." />
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Médecin</th>
+                        <th>Date Rendez-vous</th>
+                        <th>Détails Consultation</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 me-2">
+                                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <div>
+                                        <div class="fw-medium">@item.PatientNomComplet</div>
+                                        <small class="text-muted">Né le @item.PatientDateNaissance.ToString("dd/MM/yyyy")</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 me-2">
+                                        <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9" />
+                                        <path d="m13 11 4 4" />
+                                        <path d="m17 11-4 4" />
+                                    </svg>
+                                    <div>
+                                        <div class="fw-medium">@item.MedecinNomComplet</div>
+                                        <small class="text-muted">@item.MedecinSpecialite</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 me-2">
+                                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                                        <line x1="16" x2="16" y1="2" y2="6" />
+                                        <line x1="8" x2="8" y1="2" y2="6" />
+                                        <line x1="3" x2="21" y1="10" y2="10" />
+                                    </svg>
+                                    @item.DateRendezVous.ToString("dd/MM/yyyy HH:mm")
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-wrap" style="max-width: 300px;">
+                                    @{
+                                        var details = item.DetailConsultation.Split(new[] { "\n" }, StringSplitOptions.None);
+                                        @Html.Raw(string.Join("<br/>", details))
+                                    }
+
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+                                    <a asp-action="Details" asp-route-id="@item.DossierMedicalId" class="btn btn-sm btn-info" title="Détails">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.DossierMedicalId" class="btn btn-sm btn-warning" title="Modifier">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                                        </svg>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.DossierMedicalId" class="btn btn-sm btn-danger" title="Supprimer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M3 6h18" />
+                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                        </svg>
+                                    </a>
+                                    <a asp-action="ExportToPdf" asp-route-id="@item.DossierMedicalId" class="btn btn-sm btn-success" title="Export PDF">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="7 10 12 15 17 10" />
+                                            <line x1="12" y1="15" x2="12" y2="3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Tableau de Bord";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gestion Médicale</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Hero Section with Stats -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                        Tableau de Bord
+                    </h1>
+                    <p class="text-xl text-blue-100">
+                        Bienvenue dans votre espace de gestion médicale
+                    </p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
+                        <div class="text-3xl font-bold mb-2">28</div>
+                        <div class="text-blue-100">Rendez-vous aujourd'hui</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
+                        <div class="text-3xl font-bold mb-2">156</div>
+                        <div class="text-blue-100">Patients actifs</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
+                        <div class="text-3xl font-bold mb-2">12</div>
+                        <div class="text-blue-100">Médecins disponibles</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
+                        <div class="text-3xl font-bold mb-2">45</div>
+                        <div class="text-blue-100">Consultations en attente</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Cards -->
+        <div class="container mx-auto px-4 -mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Consultations -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800&auto=format&fit=crop&q=60"
+                                 alt="Consultations"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Consultations</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Gérez les consultations médicales et suivez les patients</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="Consultations" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">15 en attente</span>
+                    </div>
+                </div>
+
+                <!-- Dossiers Médicaux -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=800&auto=format&fit=crop&q=60"
+                                 alt="Dossiers"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Dossiers Médicaux</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Accédez aux dossiers médicaux des patients</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="DossierMedicals" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">156 dossiers</span>
+                    </div>
+                </div>
+
+                <!-- Médecins -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&auto=format&fit=crop&q=60"
+                                 alt="Médecins"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Médecins</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Gérez l'équipe médicale et leurs disponibilités</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="Medecins" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">12 actifs</span>
+                    </div>
+                </div>
+
+                <!-- Patients -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop&q=60"
+                                 alt="Patients"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Patients</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Gérez les informations des patients</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="Patients" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">156 enregistrés</span>
+                    </div>
+                </div>
+
+                <!-- Personnel Médical -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white0 p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&auto=format&fit=crop&q=60"
+                                 alt="Personnel"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Personnel Médical</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Gérez le personnel médical et leurs rôles</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="PersonnelMedicals" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">25 membres</span>
+                    </div>
+                </div>
+
+                <!-- Rendez-vous -->
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-white p-3 rounded-lg mr-4">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=60"
+                                 alt="Rendez-vous"
+                                 class="w-12 h-12 rounded-lg object-cover">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Rendez-Vous</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Gérez les rendez-vous et le planning</p>
+                    <div class="flex justify-between items-center">
+                        <a asp-controller="RendezVous" asp-action="Index"
+                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <span>Accéder</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <span class="text-sm text-gray-500">28 aujourd'hui</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; @DateTime.Now.Year - Système de Gestion Médicale</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

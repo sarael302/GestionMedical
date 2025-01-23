@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Page d'accueil de la Clinique";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hero-section position-relative bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-primary mb-3">Bienvenue à Notre Clinique</h1>
+                <p class="lead text-muted mb-4">Votre santé est notre priorité. Nous offrons des soins exceptionnels avec une touche personnelle.</p>
+                <a href="@Url.Action("Index", "RendezVous")" class="btn btn-primary btn-lg px-4 me-2">Prendre Rendez-vous</a>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-lg px-4">Nos Services</a>
+            </div>
+            <div class="col-lg-6">
+                <img src="/images/home.jpg" alt="Établissement de Santé Moderne" class="img-fluid rounded shadow-lg" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="features py-5 bg-white">
+    <div class="container">
+        <h2 class="text-center mb-5">Pourquoi Nous Choisir</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-heart-pulse fs-1 text-primary mb-3"></i>
+                        <h3 class="h5 card-title">Soins Experts</h3>
+                        <p class="card-text text-muted">Notre équipe de professionnels de santé expérimentés est dédiée à fournir des soins de la plus haute qualité.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-clock fs-1 text-primary mb-3"></i>
+                        <h3 class="h5 card-title">Disponibilité 24/7</h3>
+                        <p class="card-text text-muted">Services médicaux disponibles 24h/24 pour vous assurer des soins quand vous en avez le plus besoin.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-shield-check fs-1 text-primary mb-3"></i>
+                        <h3 class="h5 card-title">Installations Modernes</h3>
+                        <p class="card-text text-muted">Équipement médical de pointe et environnements de traitement confortables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="mb-4">À Propos de Notre Clinique</h2>
+                <p class="lead mb-4">Nous fournissons des soins médicaux de première qualité en mettant l'accent sur le confort et le rétablissement des patients. Notre établissement moderne est équipé des dernières technologies médicales et doté de professionnels de santé expérimentés.</p>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Personnel Médical Expérimenté</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Équipement Médical Moderne</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Environnement Confortable</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Plans de Soins Personnalisés</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="quick-links p-4 bg-white rounded shadow-sm">
+                    <h3 class="h5 mb-4">Liens Rapides</h3>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" href="@Url.Action("Index", "Home")">
+                            <i class="bi bi-speedometer2 me-2"></i>Tableau de Bord
+                        </a>
+                        <a class="btn btn-outline-primary" href="@Url.Action("Index", "RendezVous")">
+                            <i class="bi bi-calendar-check me-2"></i>Voir les Rendez-vous
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            transition: transform 0.2s ease-in-out;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+        .quick-links {
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+    </style>
+}

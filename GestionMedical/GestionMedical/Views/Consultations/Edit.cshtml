@@ -1,0 +1,105 @@
+﻿@model GestionMedical.Models.Consultation
+
+@{
+    ViewData["Title"] = "Modifier la Consultation";
+}
+
+<div class="consultation-form-page">
+    <div class="page-header">
+        <div class="header-content">
+            <h1 class="page-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                </svg>
+                Modifier la Consultation
+            </h1>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Edit" class="consultation-form">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="ConsultationId" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-group">
+                            <h3 class="section-title">Informations du Rendez-vous</h3>
+                            <div class="form-group">
+                                <label>Patient</label>
+                                <input type="text" class="form-control" value="@(Model.RendezVous?.Patient?.Nom ?? "N/A")" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Médecin</label>
+                                <input type="text" class="form-control" value="@(Model.RendezVous?.Medecin?.Nom ?? "N/A")" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Date du Rendez-vous</label>
+                                <input type="text" class="form-control" value="@(Model.RendezVous?.DateHeure.ToString("dd/MM/yyyy HH:mm") ?? "N/A")" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-group">
+                            <h3 class="section-title">Détails de la Consultation</h3>
+                            <div class="form-group">
+                                <label asp-for="Prix" class="required">Prix (DH)</label>
+                                <input asp-for="Prix" class="form-control" />
+                                <span asp-validation-for="Prix" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="OrdreMedical">Ordre Médical</label>
+                                <select asp-for="OrdreMedical" class="form-control" asp-items="ViewBag.OrdreMedicalOptions"></select>
+                                <span asp-validation-for="OrdreMedical" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="info-group">
+                            <h3 class="section-title">Résultats et Prescriptions</h3>
+                            <div class="form-group">
+                                <label asp-for="Resultat">Résultat de la Consultation</label>
+                                <textarea asp-for="Resultat" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Resultat" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Ordonnance">Ordonnance</label>
+                                <textarea asp-for="Ordonnance" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Ordonnance" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg>
+                        Enregistrer
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                            <path d="m12 19-7-7 7-7" />
+                            <path d="M19 12H5" />
+                        </svg>
+                        Retour à la liste
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

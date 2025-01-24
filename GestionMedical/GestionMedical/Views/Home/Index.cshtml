@@ -7,194 +7,322 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Gestion Médicale</title>
+    <title>@ViewData["Title"] - Cabinet Médical</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50">
-    <div class="min-h-screen">
-        <!-- Hero Section with Stats -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-8">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                        Tableau de Bord
-                    </h1>
-                    <p class="text-xl text-blue-100">
-                        Bienvenue dans votre espace de gestion médicale
-                    </p>
-                </div>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
 
-                <!-- Quick Stats -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
-                        <div class="text-3xl font-bold mb-2">28</div>
-                        <div class="text-blue-100">Rendez-vous aujourd'hui</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
-                        <div class="text-3xl font-bold mb-2">156</div>
-                        <div class="text-blue-100">Patients actifs</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
-                        <div class="text-3xl font-bold mb-2">12</div>
-                        <div class="text-blue-100">Médecins disponibles</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-6">
-                        <div class="text-3xl font-bold mb-2">45</div>
-                        <div class="text-blue-100">Consultations en attente</div>
-                    </div>
-                </div>
+        .dashboard-header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
+        }
+
+        .card-hover {
+            transition: all 0.2s ease;
+        }
+
+            .card-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            }
+
+        .stat-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+
+            .nav-item:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+    </style>
+</head>
+<body>
+    
+
+        <!-- Navigation Sidebar -->
+        <div class="fixed left-0 top-0 h-full w-64 bg-gray-900 text-white p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out">
+            <div class="flex items-center justify-center mb-8 pt-4">
+                <span class="text-xl font-bold">Cabinet Médical</span>
             </div>
+            <nav class="space-y-2">
+                
+                <a href="@Url.Action("Index", "Patients")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Patients</span>
+                </a>
+                <a href="@Url.Action("Index", "Medecins")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span>Médecins</span>
+                </a>
+                <a href="@Url.Action("Index", "RendezVous")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Rendez-vous</span>
+                </a>
+                <a href="@Url.Action("Index", "Consultations")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <span>Consultations</span>
+                </a>
+                <a href="@Url.Action("Index", "DossierMedicals")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Dossiers Médicaux</span>
+                </a>
+                <a href="@Url.Action("Index", "PersonnelMedicals")" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Personnel Médical</span>
+                </a>
+            </nav>
         </div>
 
-        <!-- Navigation Cards -->
-        <div class="container mx-auto px-4 -mt-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Consultations -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800&auto=format&fit=crop&q=60"
-                                 alt="Consultations"
-                                 class="w-12 h-12 rounded-lg object-cover">
+        <!-- Main Content -->
+        <div class="lg:ml-64">
+            <!-- Quick Stats -->
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="stat-card rounded-xl p-6 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl font-bold text-blue-600">28</div>
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Consultations</h3>
+                        <div class="flex flex-col">
+                            <span class="text-gray-600 text-sm font-medium">Rendez-vous</span>
+                            <span class="text-green-600 text-xs font-medium mt-1">+12% cette semaine</span>
+                        </div>
                     </div>
-                    <p class="text-gray-600 mb-6">Gérez les consultations médicales et suivez les patients</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="Consultations" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">15 en attente</span>
+
+                    <div class="stat-card rounded-xl p-6 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl font-bold text-blue-600">156</div>
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-gray-600 text-sm font-medium">Patients Actifs</span>
+                            <span class="text-green-600 text-xs font-medium mt-1">+5% ce mois</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rounded-xl p-6 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl font-bold text-blue-600">45</div>
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-gray-600 text-sm font-medium">Consultations</span>
+                            <span class="text-yellow-600 text-xs font-medium mt-1">15 en attente</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card rounded-xl p-6 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl font-bold text-blue-600">12</div>
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-gray-600 text-sm font-medium">Médecins</span>
+                            <span class="text-blue-600 text-xs font-medium mt-1">8 disponibles</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Dossiers Médicaux -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=800&auto=format&fit=crop&q=60"
-                                 alt="Dossiers"
-                                 class="w-12 h-12 rounded-lg object-cover">
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                    <!-- Section Gauche -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Rendez-vous du Jour -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-lg font-semibold text-gray-800">Rendez-vous du Jour</h2>
+                                <a href="@Url.Action("Index", "RendezVous")" class="text-blue-600 text-sm hover:text-blue-700">Voir tout</a>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-sm font-medium text-gray-900">Dr. Martin - Consultation</p>
+                                        <p class="text-sm text-gray-500">09:30 - M. Dubois</p>
+                                    </div>
+                                    <span class="ml-auto text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">En cours</span>
+                                </div>
+                                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-sm font-medium text-gray-900">Dr. Bernard - Suivi</p>
+                                        <p class="text-sm text-gray-500">10:00 - Mme Laurent</p>
+                                    </div>
+                                    <span class="ml-auto text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">À venir</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Dossiers Médicaux</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Accédez aux dossiers médicaux des patients</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="DossierMedicals" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">156 dossiers</span>
-                    </div>
-                </div>
 
-                <!-- Médecins -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&auto=format&fit=crop&q=60"
-                                 alt="Médecins"
-                                 class="w-12 h-12 rounded-lg object-cover">
+                        <!-- Dernières Consultations -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-lg font-semibold text-gray-800">Dernières Consultations</h2>
+                                <a href="@Url.Action("Index", "Consultations")" class="text-blue-600 text-sm hover:text-blue-700">Voir tout</a>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-sm font-medium text-gray-900">Consultation Cardiologie</p>
+                                        <p class="text-sm text-gray-500">Dr. Martin - M. Dubois</p>
+                                    </div>
+                                    <span class="ml-auto text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full">Terminée</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Médecins</h3>
                     </div>
-                    <p class="text-gray-600 mb-6">Gérez l'équipe médicale et leurs disponibilités</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="Medecins" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">12 actifs</span>
-                    </div>
-                </div>
 
-                <!-- Patients -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop&q=60"
-                                 alt="Patients"
-                                 class="w-12 h-12 rounded-lg object-cover">
+                    <!-- Section Droite -->
+                    <div class="space-y-6">
+                        <!-- Disponibilité des Médecins -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-lg font-semibold text-gray-800 mb-6">Médecins Disponibles</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-green-400 rounded-full"></div>
+                                    <span class="text-sm text-gray-600 ml-2">Dr. Martin</span>
+                                    <span class="ml-auto text-sm text-gray-500">Disponible</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-red-400 rounded-full"></div>
+                                    <span class="text-sm text-gray-600 ml-2">Dr. Bernard</span>
+                                    <span class="ml-auto text-sm text-gray-500">En consultation</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="h-2 w-2 bg-yellow-400 rounded-full"></div>
+                                    <span class="text-sm text-gray-600 ml-2">Dr. Dubois</span>
+                                    <span class="ml-auto text-sm text-gray-500">Pause déjeuner</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Patients</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Gérez les informations des patients</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="Patients" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">156 enregistrés</span>
-                    </div>
-                </div>
 
-                <!-- Personnel Médical -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white0 p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&auto=format&fit=crop&q=60"
-                                 alt="Personnel"
-                                 class="w-12 h-12 rounded-lg object-cover">
+                        <!-- Notifications -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-lg font-semibold text-gray-800 mb-6">Notifications</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm text-gray-900">Nouveau rendez-vous ajouté</p>
+                                        <p class="text-xs text-gray-500">Il y a 5 minutes</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm text-gray-900">Rappel: Mise à jour dossiers</p>
+                                        <p class="text-xs text-gray-500">Il y a 30 minutes</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Personnel Médical</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Gérez le personnel médical et leurs rôles</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="PersonnelMedicals" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">25 membres</span>
-                    </div>
-                </div>
 
-                <!-- Rendez-vous -->
-                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white p-3 rounded-lg mr-4">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=60"
-                                 alt="Rendez-vous"
-                                 class="w-12 h-12 rounded-lg object-cover">
+                        <!-- Actions Rapides -->
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h2 class="text-lg font-semibold text-gray-800 mb-6">Actions Rapides</h2>
+                            <div class="space-y-4">
+                                <a href="@Url.Action("Create", "Consultations")" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm text-gray-700">Nouvelle Consultation</span>
+                                </a>
+                                <a href="@Url.Action("Create", "Patients")" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm text-gray-700">Nouveau Patient</span>
+                                </a>
+                                <a href="@Url.Action("Create", "DossierMedicals")" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-sm text-gray-700">Nouveau Dossier</span>
+                                </a>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Rendez-Vous</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6">Gérez les rendez-vous et le planning</p>
-                    <div class="flex justify-between items-center">
-                        <a asp-controller="RendezVous" asp-action="Index"
-                           class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            <span>Accéder</span>
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <span class="text-sm text-gray-500">28 aujourd'hui</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <footer class="mt-16 bg-gray-800 text-white py-8">
+        <footer class="bg-white border-t mt-8 py-4 lg:ml-64">
             <div class="container mx-auto px-4 text-center">
-                <p>&copy; @DateTime.Now.Year - Système de Gestion Médicale</p>
+                <p class="text-sm text-gray-600">&copy; @DateTime.Now.Year - Cabinet Médical - Tous droits réservés</p>
             </div>
         </footer>
     </div>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true
+        });
+    </script>
 </body>
 </html>

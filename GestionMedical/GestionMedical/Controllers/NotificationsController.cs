@@ -13,7 +13,7 @@ namespace GestionMedical.Controllers
 {
     public class NotificationsController : Controller
     {
-        private readonly GestionMedicalContext _context; /
+        private readonly GestionMedicalContext _context; 
 
         public NotificationsController(GestionMedicalContext context)
         {
